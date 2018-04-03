@@ -1,0 +1,23 @@
+version: '3'
+
+networks:
+  prodnetwork:
+    driver: bridge
+
+volumes:
+  jenkins-data:
+
+services:
+  jenkins:
+    build: ./jenkins
+    restart: always
+    ports:
+      - '18080:8080'
+    networks:
+      - prodnetwork
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/bin/docker
+      - jenkins-data:/var/lib/jenkins/
+    #depends_on:
+    #  - nexus

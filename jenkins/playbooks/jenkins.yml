@@ -1,0 +1,13 @@
+- hosts: all
+  vars:
+    jenkins_hostname: localhost
+    jenkins_package_state: latest
+    jenkins_plugins: ['greenballs']
+    jenkins_plugins_state: present
+  roles:
+    - role: geerlingguy.java
+      when: "ansible_os_family == 'RedHat'"
+      java_packages:
+        - java-1.8.0-openjdk
+    - role: geerlingguy.jenkins
+      become: true
